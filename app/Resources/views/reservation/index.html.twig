@@ -1,0 +1,39 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Reservations list</h1>
+
+    <table class="table">
+        <thead>
+            <tr class="table-light">
+                <th>Id</th>
+                <th>Client</th>
+                <th>Voiture</th>
+                <th>Date debut</th>
+                <th>Nbjours</th>
+                <th>Date fin</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td><a href="{{ path('admin_reservation_show', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
+                <td>{{ reservation.client.nom }} {{ reservation.client.prenom }}</td>
+                <td>{{ reservation.voiture.libelle }}</td>
+                <td>{% if reservation.dateDeb %}{{ reservation.dateDeb|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ reservation.nbJours }}</td>
+                <td>{{ reservation.dateDeb | date_modify("+"~ reservation.nbJours ~" day") | date("Y-m-d") }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="active ml-1">Liste des réservations / </li>
+    </ul>
+
+{% endblock %}

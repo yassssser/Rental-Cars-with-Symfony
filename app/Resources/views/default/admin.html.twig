@@ -1,0 +1,24 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+
+<h1> Admin Page </h1>
+
+<p>{{ app.user.id }}</p>
+<p>{{ app.user.email }}</p>
+
+<ul>
+    {% for role in app.user.roles %}
+    <li>{{ role }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block breadcrumb %}
+
+    <ul class="breadcrumb">
+        <li><a href=""> Dashbord / </a></li>
+        <li class="active ml-1"> List of category</li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Voiture creation</h1>
+
+    {{ form_start(form) }}
+            <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_row(form.matricule, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.libelle, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.diesel, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.couleur, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.prix, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                {{ form_row(form.nbChevaux, {'attr': {'class': 'form-control'}}) }}
+            </div>
+             <div class="form-group">
+                {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+             </div>
+            <div class="form-group">
+                {{ form_row(form.agence, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.agent, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-6 mx-auto">
+            <input class="btn btn-success btn-block" type="submit" value="Create" />
+        </div>
+    </div>
+    <a  class="btn btn-primary" href="{{ path('admin_voiture_index') }}"><i class="fa fa-arrow-left"></i>  Back to the list</a>
+  
+    {{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="mx-2"><a href="{{ path('admin_voiture_index') }}"> Liste des voitures /  </a></li>
+        <li class="active">Nouvelle voiture</li>
+    </ul>
+
+{% endblock %}

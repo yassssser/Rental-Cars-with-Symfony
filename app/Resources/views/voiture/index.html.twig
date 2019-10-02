@@ -1,0 +1,37 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Voitures list</h1>
+
+<div class="row">   
+     <div class="col-md-9"></div>
+     <div class="col-md-3">
+        <a class="btn btn-success mb-2" href="{{ path('admin_voiture_new') }}"><i class="fa fa-plus"></i> Ajouter une nouvelle voiture</a>
+    </div>
+</div>
+
+    <div class="row">
+            {% for voiture in voitures %}
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="{{ asset('uploads/voitures/' ~ voiture.image ) }}" width="100%" height="200px" alt="">
+                <div class="caption">
+                    <h3><td>{{ voiture.libelle }}</td></h3>
+                    <p>Prix : {{ voiture.prix }}DH /j</p>
+                    <p><a class="btn btn-info" href="{{ path('admin_voiture_show', { 'id': voiture.id }) }}"><i class="fa fa-eye"></i> </a>
+                    <a class="btn btn-warning" href="{{ path('admin_voiture_edit', { 'id': voiture.id }) }}"><i class="fa fa-edit"></i> </a></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div> 
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="active"> Liste des voitures /</li>
+    </ul>
+
+{% endblock %}

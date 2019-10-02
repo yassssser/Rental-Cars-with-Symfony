@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block content %}
+
+
+    <div class="hero-wrap" style="background-image: url({{ asset('uploads/voitures/' ~ voiture.image ) }});" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text justify-content-start align-items-center">
+          <div class="col-lg-6 col-md-6 ftco-animate d-flex align-items-end">
+          	<div class="text">
+	            <h1 style="color:red;">{{ voiture.libelle }}</h1>
+	            <p style="font-size: 18px;"></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col"></div>
+          
+          <div class="col-lg-4 col-md-8 mt-0 mt-md-7 d-flex">
+          <div class="col-md-12">
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<br>
+
+<div class="row">
+<div class="col-md-6 mx-auto">
+    <div class="card mb-3 mx-2">
+    <h3 class="card-header">Agency : {{ voiture.agence.libelle }}</h3>
+    <div class="card-body">
+        <h5 class="card-title">{{ voiture.libelle }}</h5>
+    </div>
+    <img style="height: 150px; width: 100%; display: block;" src="{{ asset('uploads/voitures/' ~ voiture.image ) }}" alt="Card image">
+    <div class="card-body">
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Agent en charge : {{ voiture.agent.nom }} {{ voiture.agent.prenom }}</li>
+        <li class="list-group-item">Prix : {{ voiture.prix }}</li>
+        <li class="list-group-item">Diesel : {{ voiture.diesel }}</li>
+        <li class="list-group-item">Couleur : {{ voiture.couleur }}</li>
+        <li class="list-group-item">Nombres des chevaux : {{ voiture.nbChevaux }}</li>
+    </ul>
+    </div>
+</div>
+</div>
+
+<br>
+<br>
+{% endblock %}

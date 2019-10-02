@@ -1,0 +1,39 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Clients list</h1>
+
+    <table class="table">
+        <thead>
+            <tr class="table-success">
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Tel</th>
+                <th>Adresse</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td><a href="{{ path('admin_client_show', { 'id': client.id }) }}">{{ client.id }}</a></td>
+                <td>{{ client.nom }}</td>
+                <td>{{ client.prenom }}</td>
+                <td>{{ client.tel }}</td>
+                <td>{{ client.adresse }}</td>
+                <td>{{ client.email }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="active ml-1">Liste des clients / </li>
+    </ul>
+
+{% endblock %}

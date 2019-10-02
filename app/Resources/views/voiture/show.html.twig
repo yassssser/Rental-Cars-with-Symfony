@@ -1,0 +1,45 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Voiture</h1>
+
+
+<div class="row">
+<div class="col-xs-12 col-sm-6 col-md-4">
+    <div class="card mb-3 mx-2">
+    <h3 class="card-header">{{ voiture.agence.libelle }}</h3>
+    <div class="card-body">
+        <h5 class="card-title">{{ voiture.libelle }}</h5>
+    </div>
+    <img style="height: 150px; width: 100%; display: block;" src="{{ asset('uploads/voitures/' ~ voiture.image ) }}" alt="Card image">
+    <div class="card-body">
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Agent en charge : {{ voiture.agent.nom }} {{ voiture.agent.prenom }}</li>
+        <li class="list-group-item">Prix : {{ voiture.prix }}</li>
+        <li class="list-group-item">Diesel : {{ voiture.diesel }}</li>
+        <li class="list-group-item">Couleur : {{ voiture.couleur }}</li>
+        <li class="list-group-item">Nombres des chevaux : {{ voiture.nbChevaux }}</li>
+    </ul>
+        <div class="card-footer text-muted">
+        <a  class="btn btn-primary" href="{{ path('admin_voiture_index') }}"><i class="fa fa-arrow-left"></i>  </a>
+        <a class="btn btn-warning " href="{{ path('admin_voiture_edit', { 'id': voiture.id }) }}"><i class="fa fa-edit"></i> </a>
+        {{ form_start(delete_form) }}
+                <input class="btn btn-danger my-2" type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+    </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="mx-2"><a href="{{ path('admin_voiture_index') }}"> Liste des voitures /  </a></li>
+        <li class="active">{{ voiture.libelle }}</li>
+    </ul>
+
+{% endblock %}

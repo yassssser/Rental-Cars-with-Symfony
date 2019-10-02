@@ -1,0 +1,31 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>{{ agence.libelle}}</h1>
+
+
+
+<div class="card border-success mb-3" style="max-width: 20rem;">
+  <div class="card-header"><h4 align="center">{{ agence.libelle }}</h4></div>
+  <div class="card-body">
+    <h4 class="card-title">{{ agence.adresse }}</h4>
+    <p class="card-text">
+        <a  class="btn btn-primary" href="{{ path('admin_agence_index') }}"><i class="fa fa-arrow-left"></i>  </a>
+     <a class="btn btn-warning" href="{{ path('admin_agence_edit', { 'id': agence.id }) }}"><i class="fa fa-edit"></i> </a>
+     {{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Delete">
+            {{ form_end(delete_form) }} </p>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="mx-2"><a href="{{ path('admin_agence_index') }}"> Liste des agneces /  </a></li>
+        <li class="active">{{ agence.libelle}}</li>
+    </ul>
+
+{% endblock %}

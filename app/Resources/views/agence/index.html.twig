@@ -1,0 +1,44 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Agences list</h1>
+    
+
+    <div class="pull-right">
+        <a class="btn btn-success mb-2" href="{{ path('admin_agence_new') }}"><i class="fa fa-plus"></i> Ajouter une nouvelle agence</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr class="table-info">
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for agence in agences %}
+            <tr>
+                <td><a href="{{ path('admin_agence_show', { 'id': agence.id }) }}">{{ agence.id }}</a></td>
+                <td>{{ agence.libelle }}</td>
+                <td>{{ agence.adresse | slice(0, 20) }}</td>
+                <td nowrap>
+                            <a class="btn btn-info" href="{{ path('admin_agence_show', { 'id': agence.id }) }}"><i class="fa fa-eye"></i> </a>
+                      
+                            <a class="btn btn-warning" href="{{ path('admin_agence_edit', { 'id': agence.id }) }}"><i class="fa fa-edit"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="active ml-1">Liste des agences / </li>
+    </ul>
+
+{% endblock %}

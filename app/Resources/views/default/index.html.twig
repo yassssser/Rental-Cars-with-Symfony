@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block content %}
+
+    <div class="hero-wrap" style="background-image: url({{ asset('front/images/bg_1.jpg') }});" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text justify-content-start align-items-center">
+          <div class="col-lg-6 col-md-6 ftco-animate d-flex align-items-end">
+          	<div class="text">
+	            <h1 class="mb-4">Now <span>It's easy for you</span> <span>to rent a car</span></h1>
+	            <p style="font-size: 18px;"></p>
+	            <a href="https://vimeo.com/45830194" class="icon-wrap popup-vimeo d-flex align-items-center mt-4">
+	            	<div class="icon d-flex align-items-center justify-content-center">
+	            		<span class="ion-ios-play"></span>
+	            	</div>
+	            	<div class="heading-title ml-5">
+		            	<span>Easy steps for renting a car</span>
+	            	</div>
+	            </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col"></div>
+          
+          <div class="col-lg-4 col-md-8 mt-0 mt-md-7 d-flex">
+          <div class="col-md-12">
+            
+          	<div class="request-form ftco-animate">
+            {{ form_start(form) }}
+          		<h2>Make your trip</h2>
+	    				<div class="form-group">
+	    					<label for="" class="label">Select Brand</label>
+                {{ form_widget(form.select, {'attr': {'class': 'form-control'}}) }}
+	    				</div>
+	    				<div class="form-group">
+	    					<label for="" class="label">Number of days</label>
+	    					{{ form_widget(form.Number, {'attr': {'class': 'form-control'}}) }}
+	    				</div>
+	    				<div class="d-flex">
+	    					<div class="form-group mr-2">
+	                <label for="" class="label">Pick-up date</label>
+	                {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+	              </div>
+              </div>
+              {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+              <div class="form-group">
+                {{ form_row(form.client, {'attr': {'class': 'form-control', 'value': app.user.username }}) }}
+	    				</div>
+	            <div class="form-group">
+                {{ form_widget(form.Search, {'attr': {'class': 'btn btn-primary py-3 px-4'}}) }}
+	            </div>
+              {% else %}
+              <div class="form-group">
+	              <input  value="Please login first" class="btn btn-primary py-3 px-4" disabled>
+	            </div>
+              {% endif %}
+            {{ form_end(form) }}
+            </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<br>
+
+    <section class="ftco-section services-section ftco-no-pt ftco-no-pb">
+      <div class="container">
+      	<div class="row justify-content-center">
+          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+          	<span class="subheading"></span>
+            <h2 class=" mb-2">Our Services</h2>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon"><span class="flaticon-customer-support"></span></div>
+	                <h3 class="heading mb-0 pl-3">24/7 Car Support</h3>
+                </div>
+                <p>Always available to ensure the best service for our clients</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon"><span class="flaticon-route"></span></div>
+	                <h3 class="heading mb-0 pl-3">Lots of location</h3>
+                </div>
+                <p>Wherever you are, we can provide. Our agencies are all over the coutry</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon"><span class="flaticon-online-booking"></span></div>
+	                <h3 class="heading mb-0 pl-3">Reservation</h3>
+                </div>
+                <p>A very simple process to make a reservation</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon"><span class="flaticon-rent"></span></div>
+	                <h3 class="heading mb-0 pl-3">Rental Cars</h3>
+                </div>
+                <p>We have all kinds of cars, a large parc. Just pick what you desire</p>
+              </div>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    
+    <section class="ftco-section">
+    	<div class="container-fluid px-4">
+    		<div class="row justify-content-center">
+          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+          	<span class="subheading">What we offer</span>
+            <h2 class="mb-2">Choose Your Car</h2>
+          </div>
+        </div>
+    		<div class="row">
+            {% for voiture in voitures %}
+    			<div class="col-md-3">
+    				<div class="car-wrap ftco-animate">
+              <a href="{{ path('car_show' , {'id' : voiture.id}) }}">
+    					<div class="img d-flex align-items-end" style="background-image: url({{ asset('uploads/voitures/' ~ voiture.image ) }});">
+              </a>
+    						<div class="price-wrap d-flex">
+    							<span class="rate">{{ voiture.prix }}</span>
+    							<p class="from-day">
+    								<span>DH</span>
+    								<span>/Day</span>
+    							</p>
+    						</div>
+    					</div>
+    					<div class="text p-4 text-center">
+    						<h2 class="mb-0"><a href="{{ path('car_show' , {'id' : voiture.id}) }}">{{ voiture.libelle }}</a></h2>
+    						<span>{{ voiture.diesel }}</span>
+    						<p class="d-flex mb-0 d-block">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="#" class="btn btn-black btn-outline-black mr-1">Book now</a>
+                {% else  %}
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-black btn-outline-black mr-1">log in</a>
+                {% endif %}
+                 <a href="{{ path('car_show' , {'id' : voiture.id}) }}" class="btn btn-black btn-outline-black ml-1">Details</a></p>
+    					</div>
+    				</div>
+    			</div>
+            {% endfor %}
+    		</div>
+            <div class="row">
+            <div class="col-md-5 "></div>
+                <div class="col-md-7">
+            <a href="{{ path('car') }}" class="btn btn-primary btn-lg">See all cars  <i class="fa fa-arrow-right"></i></a> 
+                </div>
+            </div>
+    	</div>
+    </section>
+
+
+        <section class="ftco-section services-section img" style="background-image: url({{ asset('front/images/bg_2.jpg') }});">
+    	<div class="overlay"></div>
+    	<div class="container">
+    		<div class="row justify-content-center mb-5">
+          <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+          	<span class="subheading">Work flow</span>
+            <h2 class="mb-3">How it works</h2>
+          </div>
+        </div>
+    		<div class="row">
+    			<div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services services-2">
+              <div class="media-body py-md-4 text-center">
+              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                <h3>Pick Destination</h3>
+                <p>Our agents are always available, you can just pick up a destination, and your car will be delivered</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services services-2">
+              <div class="media-body py-md-4 text-center">
+              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-select"></span></div>
+                <h3>Select Duration</h3>
+                <p>You can rent a car for any duration yu like. Just be precise</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services services-2">
+              <div class="media-body py-md-4 text-center">
+              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                <h3>Choose A Car</h3>
+                <p>Pick your car from our parc. Feel free and choose what you really desire</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services services-2">
+              <div class="media-body py-md-4 text-center">
+              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-review"></span></div>
+                <h3>Enjoy The Ride</h3>
+                <p>Feel the pleasure and the joy of riding one of our outstanding vehicles</p>
+              </div>
+            </div>      
+          </div>
+    		</div>
+    	</div>
+    </section>
+<br>
+<br>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('back/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/font-awesome.min.css') }}">
+
+     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+      <link rel="stylesheet" href="{{ asset('front/css/open-iconic-bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('front/css/animate.css') }}">
+      
+      <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('front/css/owl.theme.default.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('front/css/magnific-popup.css') }}">
+
+      <link rel="stylesheet" href="{{ asset('front/css/aos.css') }}">
+
+      <link rel="stylesheet" href="{{ asset('front/css/ionicons.min.css') }}">
+
+      <link rel="stylesheet" href="{{ asset('front/css/bootstrap-datepicker.css') }}">
+      <link rel="stylesheet" href="{{ asset('front/css/jquery.timepicker.css') }}">
+
+      
+      <link rel="stylesheet" href="{{ asset('front/css/flaticon.css') }}">
+      <link rel="stylesheet" href="{{ asset('front/css/icomoon.css') }}">
+      <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+    </head>
+    <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="{{ path('homepage') }}">MK<span>Luxury</span></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item active"><a href="{{ path('homepage') }}" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="{{ path('car') }}" class="nav-link">Our cars</a></li>
+	          <li class="nav-item"><a href="car.html" class="nav-link">Contact</a></li>
+                      {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> <i class="fa fa-cog fa-spin" style="color:yellow"></i>  {{ app.user.username }}</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link" href="{{ path('fos_user_security_logout') }}"> <i class="fa fa-sign-out"></i>  {{ 'layout.logout' | trans({},'FOSUserBundle') }}</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('fos_user_security_login') }}"> <i class="fa fa-sign-in"></i>  {{ 'layout.login' | trans({},'FOSUserBundle') }}</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link" href="{{ path('fos_user_registration_register') }}"> <i class="fa fa-user"></i>  {{ 'layout.register' | trans({},'FOSUserBundle') }}</a>
+                            </li>
+                        {% endif %}
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+
+
+
+
+        {% block content %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+
+
+      <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">About MK Luxury Cars</h2>
+              <p>Our agency is specialised in car rental since 2008. We offre quality services and very good prices.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Operation Al Anbar, Magasin N90 Massira 2 Marrakech</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+212 679 928 907</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">Kacem.chfoul@gmail.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+
+
+  <script src="{{ asset('front/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('front/js/jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ asset('front/js/popper.min.js') }}"></script>
+  <script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('front/js/jquery.easing.1.3.js') }}"></script>
+  <script src="{{ asset('front/js/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ asset('front/js/jquery.stellar.min.js') }}"></script>
+  <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ asset('front/js/aos.js') }}"></script>
+  <script src="{{ asset('front/js/jquery.animateNumber.min.js') }}"></script>
+  <script src="{{ asset('front/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ asset('front/js/jquery.timepicker.min.js') }}"></script>
+  <script src="{{ asset('front/js/scrollax.min.js') }}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{{ asset('front/js/google-map.js') }}"></script>
+  <script src="{{ asset('front/js/main.js') }}"></script>
+  
+    </body>
+</html>

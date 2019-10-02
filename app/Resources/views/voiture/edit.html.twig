@@ -1,0 +1,60 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+    <h1>Voiture edit</h1>
+
+    {{ form_start(edit_form) }}
+            <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_row(edit_form.matricule, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.libelle, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.diesel, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.couleur, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.prix, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                {{ form_row(edit_form.nbChevaux, {'attr': {'class': 'form-control'}}) }}
+            </div>
+             <div class="form-group">
+                {{ form_row(edit_form.image, {'attr': {'class': 'form-control'}}) }}
+             </div>
+            <div class="form-group">
+                {{ form_row(edit_form.agence, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.agent, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-6 mx-auto">
+            <input class="btn btn-warning btn-block" type="submit" value="update" />
+        </div>
+    </div>
+    <a  class="btn btn-primary" href="{{ path('admin_voiture_index') }}"><i class="fa fa-arrow-left"></i>  Back to the list</a>
+  
+    {{ form_end(edit_form) }}
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href=""> Dashboard /  </a></li>
+        <li class="mx-2"><a href="{{ path('admin_voiture_index') }}"> Liste des voitures /  </a></li>
+        <li class="active">{{ voiture.libelle }}</li>
+    </ul>
+
+{% endblock %}
