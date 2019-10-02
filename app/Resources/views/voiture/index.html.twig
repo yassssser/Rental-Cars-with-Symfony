@@ -17,7 +17,7 @@
                 <img src="{{ asset('uploads/voitures/' ~ voiture.image ) }}" width="100%" height="200px" alt="">
                 <div class="caption">
                     <h3><td>{{ voiture.libelle }}</td></h3>
-                    <p>Prix : {{ voiture.prix }}DH /j</p>
+                    <p>Prix : {{ voiture.prix }}$ /j</p>
                     <p><a class="btn btn-info" href="{{ path('admin_voiture_show', { 'id': voiture.id }) }}"><i class="fa fa-eye"></i> </a>
                     <a class="btn btn-warning" href="{{ path('admin_voiture_edit', { 'id': voiture.id }) }}"><i class="fa fa-edit"></i> </a></p>
                 </div>

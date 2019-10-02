@@ -89,6 +89,13 @@ class Voiture
      */
     private $agence;
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="reserver", type="boolean", options={"default" : 0})
+     */
+    private $reserver;
   
 
 
@@ -340,5 +347,29 @@ class Voiture
     public function getReservation()
     {
         return $this->reservation;
+    }
+
+    /**
+     * Set reserver
+     *
+     * @param boolean $reserver
+     *
+     * @return Voiture
+     */
+    public function setReserver($reserver)
+    {
+        $this->reserver = $reserver;
+
+        return $this;
+    }
+
+    /**
+     * Get reserver
+     *
+     * @return boolean
+     */
+    public function getReserver()
+    {
+        return $this->reserver;
     }
 }

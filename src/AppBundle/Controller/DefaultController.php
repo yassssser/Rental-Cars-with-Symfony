@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DefaultController extends Controller
 {
@@ -40,8 +41,10 @@ class DefaultController extends Controller
                         'format' => 'yyyy-MM-dd',
                         'data' => new \DateTime()
                     ))
-                    ->add('client' , TextType::class)
-                    ->add('Search' , SubmitType::class)
+                    ->add('user' , EntityType::class , array(
+                        'class' => 'AppBundle\Entity\User',
+                        'choice_label' => 'username'))
+                    ->add('Reserve' , SubmitType::class)
                     ->getForm();
                     
 
@@ -52,12 +55,13 @@ class DefaultController extends Controller
             $date =  $data['date'];
             $Number =  $data['Number'];
             $select =  $data['select'];
-            $client =  $data['client'];
+            $client =  $data['user'];
 
             $reservation->setDateDeb($date);
             $reservation->setNbJours($Number);
             $reservation->setVoiture($select);
-            $reservation->setClient($client);
+            $reservation->setUser($client);
+            $reservation->getVoiture()->setReserver(1);
 
             $em->persist($reservation);
             $em->flush();
@@ -65,14 +69,14 @@ class DefaultController extends Controller
             $voitures = $em->getRepository('AdminBundle:Voiture')->findBy([] , [] , 4 ,null);
             return $this->render('default/index.html.twig', [
                 'voitures' => $voitures,
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
         }
 
         $voitures = $em->getRepository('AdminBundle:Voiture')->findBy([] , [] , 4 ,null);
         return $this->render('default/index.html.twig', [
             'voitures' => $voitures,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -92,20 +96,103 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $car = $em->getRepository('AdminBundle:Voiture')->find($id);
+        $cars = $em->getRepository('AdminBundle:reservation')->findAll();
         return $this->render('default/show.html.twig', [
             'voiture' => $car,
+            'cars' => $cars
         ]);
     }
 
     /**
      * @Route("/car", name="car")
+     * @Method({"GET", "POST"})
      */
-    public function car(){
+    public function car(Request $request){
+
 
         $em = $this->getDoctrine()->getManager();
+
+        $reservation = new reservation();
+         $form = $this->createFormBuilder()
+                    ->add('select', EntityType::class , array(
+                            'class' => 'AdminBundle\Entity\Voiture',
+                            'choice_label' => 'libelle',
+                            'expanded' => false,
+                            'multiple' => false))
+                    ->add('Number', NumberType::class)
+                    ->add('date', DateType::class, array(
+                        'widget' => 'single_text',
+                        'format' => 'yyyy-MM-dd',
+                        'data' => new \DateTime()
+                    ))
+                    ->add('user' , EntityType::class , array(
+                        'class' => 'AppBundle\Entity\User',
+                        'choice_label' => 'username'))
+                    ->add('Reserve' , SubmitType::class)
+                    ->getForm();
+                    
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $data = $form->getData();
+
+            $date =  $data['date'];
+            $Number =  $data['Number'];
+            $select =  $data['select'];
+            $client =  $data['user'];
+
+            $reservation->setDateDeb($date);
+            $reservation->setNbJours($Number);
+            $reservation->setVoiture($select);
+            $reservation->setUser($client);
+            $reservation->getVoiture()->setReserver(1);
+
+            $em->persist($reservation);
+            $em->flush();
+
         $car = $em->getRepository('AdminBundle:Voiture')->findAll();
         return $this->render('default/car.html.twig', [
             'voitures' => $car,
+            'form' => $form->createView(),
+        ]);
+    }
+    $car = $em->getRepository('AdminBundle:Voiture')->findAll();
+    return $this->render('default/car.html.twig', [
+        'voitures' => $car,
+        'form' => $form->createView(),
+    ]);
+    
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     * @Method({ "GET" , "POST" })
+     */
+    public function contact(Request $request, \Swift_Mailer $mailer){
+
+        $form = $this->createFormBuilder()
+                    ->add('from')
+                    ->add('subject')
+                    ->add('body', TextareaType::class)
+                    ->add('send' , SubmitType::class)
+                    ->getForm();
+        
+        $form->handleRequest($request);
+
+        if ( $form->isSubmitted() ){
+
+            $data = $form->getData();
+            $message = ( new \Swift_Message($data['subject']) )
+                    ->setFrom($data['from'])
+                    ->setTo('yasser.benmman@iga-marrakech.ma')
+                    ->setBody($data['body'] , 'text/plain');
+
+        $mailer->send($message);
+        
+        }
+
+        return $this->render('default/contact.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

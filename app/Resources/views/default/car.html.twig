@@ -45,7 +45,7 @@
     						<div class="price-wrap d-flex">
     							<span class="rate">{{ voiture.prix }}</span>
     							<p class="from-day">
-    								<span>DH</span>
+    								<span>$$</span>
     								<span>/Day</span>
     							</p>
     						</div>
@@ -53,7 +53,18 @@
     					<div class="text p-4 text-center">
     						<h2 class="mb-0"><a href="{{ path('car_show' , {'id' : voiture.id}) }}">{{ voiture.libelle }}</a></h2>
     						<span>{{ voiture.diesel }}</span>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-black btn-outline-black mr-1">Book now</a> <a href="{{ path('car_show' , {'id' : voiture.id}) }}" class="btn btn-black btn-outline-black ml-1">Details</a></p>
+    						<p class="d-flex mb-0 d-block">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                  {% if voiture.reserver == 1 %}
+                     <a  class="btn btn-black btn-outline-black mr-1" style="color:red;"disabled><label style="color:red;">Reserved</label></a>
+                  {% else  %}
+                      <a href="#" class="btn btn-black btn-outline-black mr-1" data-toggle="modal" data-target="#exampleModal">Book now</a>
+                  {% endif %}
+                
+                {% else  %}
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-black btn-outline-black mr-1">log in</a>
+                {% endif %}
+                 <a href="{{ path('car_show' , {'id' : voiture.id}) }}" class="btn btn-black btn-outline-black ml-1">Details</a></p>
     					</div>
     				</div>
     			</div>
@@ -61,7 +72,64 @@
     		</div>
     	</div>
     </section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Book Now</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="request-form ftco-animate">
+               {{ form_start(form) }}
+	    				<div class="form-group">
+	    					<label for="" class="label">Select Brand</label>
+                {{ form_widget(form.select, {'attr': {'class': 'form-control'}}) }}
+	    				</div>
+	    				<div class="form-group">
+	    					<label for="" class="label">Number of days</label>
+	    					{{ form_widget(form.Number, {'attr': {'class': 'form-control'}}) }}
+	    				</div>
+	    				<div class="d-flex">
+	    					<div class="form-group mr-2">
+	                <label for="" class="label">Pick-up date</label>
+	                {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+	              </div>
+              </div>
+              {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+              <div class="form-group" hidden>
 
+                {{ form_row(form.user, {'attr': {'class': 'form-control', 'value': app.user.username }}) }}
+
+	    				</div>
+	            <div class="form-group">
+                {{ form_widget(form.Reserve, {'attr': {'class': 'btn btn-primary py-3 px-4'}}) }}
+	            </div>
+              {% else %}
+              <div class="form-group" hidden>
+
+                {{ form_row(form.user, {'attr': {'class': 'form-control'}}) }}
+
+	    				</div>
+	            <div class="form-group" hidden>
+                {{ form_widget(form.Reserve, {'attr': {'class': 'btn btn-primary py-3 px-4'}}) }}
+	            </div>
+              <div class="form-group">
+	              <input  value="Please login first" class="btn btn-primary py-3 px-4" disabled>
+	            </div>
+              {% endif %}
+            {{ form_end(form) }}
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <br>

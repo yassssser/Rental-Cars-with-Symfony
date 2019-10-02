@@ -38,9 +38,9 @@ class reservation
     /**
      * 
      *
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Client", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      */
-    private $client;
+    private $user;
 
     /**
      * 
@@ -107,27 +107,53 @@ class reservation
         return $this->nbJours;
     }
 
+  
+
     /**
-     * Set client
+     * Set voiture
      *
-     * @param \AdminBundle\Entity\Client $client
+     * @param \AdminBundle\Entity\Voiture $voiture
      *
      * @return reservation
      */
-    public function setClient(\AdminBundle\Entity\Client $client = null)
+    public function setVoiture(\AdminBundle\Entity\Voiture $voiture = null)
     {
-        $this->client = $client;
+        $this->voiture = $voiture;
 
         return $this;
     }
 
     /**
-     * Get client
+     * Get voiture
      *
-     * @return \AdminBundle\Entity\Client
+     * @return \AdminBundle\Entity\Voiture
      */
-    public function getClient()
+    public function getVoiture()
     {
-        return $this->client;
+        return $this->voiture;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return reservation
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

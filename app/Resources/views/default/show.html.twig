@@ -34,7 +34,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ voiture.libelle }}</h5>
     </div>
-    <img style="height: 150px; width: 100%; display: block;" src="{{ asset('uploads/voitures/' ~ voiture.image ) }}" alt="Card image">
+    <center><img style="height: 150px; width: 80%; display: block;" src="{{ asset('uploads/voitures/' ~ voiture.image ) }}" alt="Card image"></center>
     <div class="card-body">
     </div>
     <ul class="list-group list-group-flush">
@@ -43,6 +43,9 @@
         <li class="list-group-item">Diesel : {{ voiture.diesel }}</li>
         <li class="list-group-item">Couleur : {{ voiture.couleur }}</li>
         <li class="list-group-item">Nombres des chevaux : {{ voiture.nbChevaux }}</li>
+       {% if voiture.reserver == 1 %}
+           <li class="list-group-item"><label style="color:red;">Reserved</label></li>
+        {% endif  %}
     </ul>
     </div>
 </div>

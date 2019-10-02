@@ -8,7 +8,9 @@
             <tr class="table-light">
                 <th>Id</th>
                 <th>Client</th>
+                <th>Client email</th>
                 <th>Voiture</th>
+                <th>Agent en charge</th>
                 <th>Date debut</th>
                 <th>Nbjours</th>
                 <th>Date fin</th>
@@ -18,8 +20,10 @@
         {% for reservation in reservations %}
             <tr>
                 <td><a href="{{ path('admin_reservation_show', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td>
-                <td>{{ reservation.client.nom }} {{ reservation.client.prenom }}</td>
+                <td>{{ reservation.User.username }}</td>
+                <td>{{ reservation.User.email }}</td>
                 <td>{{ reservation.voiture.libelle }}</td>
+                <td>{{ reservation.voiture.agent.nom }} {{ reservation.voiture.agent.prenom }}</td>
                 <td>{% if reservation.dateDeb %}{{ reservation.dateDeb|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ reservation.nbJours }}</td>
                 <td>{{ reservation.dateDeb | date_modify("+"~ reservation.nbJours ~" day") | date("Y-m-d") }} </td>

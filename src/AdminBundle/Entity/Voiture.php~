@@ -89,6 +89,13 @@ class Voiture
      */
     private $agence;
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="reserver", type="boolean", options={"default" : 0})
+     */
+    private $reserver;
   
 
 

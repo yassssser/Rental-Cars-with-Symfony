@@ -42,7 +42,7 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="{{ path('homepage') }}" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="{{ path('car') }}" class="nav-link">Our cars</a></li>
-	          <li class="nav-item"><a href="car.html" class="nav-link">Contact</a></li>
+	          <li class="nav-item"><a href="{{ path('contact') }}" class="nav-link">Contact</a></li>
                       {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="#"> <i class="fa fa-cog fa-spin" style="color:yellow"></i>  {{ app.user.username }}</a>
@@ -79,7 +79,7 @@
               <p>Our agency is specialised in car rental since 2008. We offre quality services and very good prices.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.facebook.com/luxurymkcar/?ref=search&__tn__=%2Cd%2CP-R&eid=ARC6lNnc0xRdu8vRgCJ_wGOvEW5nigleGYQnhHrq3iELkT3PEsTTeb-qPBkTejzHcBXSxHW75fznKdYe" target="_blank"><span class="icon-facebook"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
               </ul>
             </div>
